@@ -5,12 +5,12 @@ import { ApolloServer } from "apollo-server-micro";
 import typeDefs from "./schema";
 import resolvers from "./resolvers";
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const startServer = async () => {
+  const server = new ApolloServer({ typeDefs, resolvers });
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
+  await server.start();
+
+  return server.createHandler({ path: "/" });
 };
 
-export default server.createHandler({ path: "/" });
+export default startServer();
